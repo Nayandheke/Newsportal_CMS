@@ -1,13 +1,23 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { clearStorage } from "../lib";
+import { clearUser } from "../store";
+import { Link } from "react-router-dom";
 
 
 export const CmsNav = () => {
     const user = useSelector (state => state.user.value)
 
+    const dispatch = useDispatch()
+
+    const handleLogout = () => {
+        clearStorage('cmstoken')
+        dispatch(clearUser())
+    }
+
     return Object.keys(user).length ? <>
         <div className="navbar">
             <div className="logo">
-                <a href=""><h1>Metro News</h1></a>
+                <Link to="/"><h1>Metro News</h1></Link>
             </div>
             <ul className="nav-links">
                 <li><a href=""><i className="fa-solid fa-users"></i> Editors</a></li>
@@ -16,9 +26,9 @@ export const CmsNav = () => {
             <div className="dropdown">
             <button className="dropt"><i className="fa-solid fa-user"></i> Demo User <i className="fa-solid fa-caret-down"></i></button>
                     <div className="dropdown-content">
-                        <a href="">Link 1</a>
-                        <a href="">Link 2</a>
-                        <a href="">Link 3</a>
+                        <Link to="edit-profile">Edit profile</Link>
+                        <Link to="changepassword">ChangePassword</Link>
+                        <a  onClick={handleLogout}>logout</a>
                     </div>
             </div>
         </div>
