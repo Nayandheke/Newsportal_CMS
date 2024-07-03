@@ -19,12 +19,13 @@ export const CmsNav = () => {
             <div className="logo">
                 <Link to="/"><h1>Metro News</h1></Link>
             </div>
+            {user.type == 'Admin' ?             
             <ul className="nav-links">
-                <li><a href=""><i className="fa-solid fa-users"></i> Editors</a></li>
+                <li><Link to="/editors"><i className="fa-solid fa-users"></i> Editors</Link></li>
                 <li><a href=""><i className="fa-solid fa-user"></i> Admin</a></li>
-            </ul>
+            </ul> : null}
             <div className="dropdown">
-            <button className="dropt"><i className="fa-solid fa-user"></i> Demo User <i className="fa-solid fa-caret-down"></i></button>
+            <button className="dropt"><i className="fa-solid fa-user"></i> {user.name} <i className="fa-solid fa-caret-down"></i></button>
                     <div className="dropdown-content">
                         <Link to="edit-profile">Edit profile</Link>
                         <Link to="changepassword">ChangePassword</Link>

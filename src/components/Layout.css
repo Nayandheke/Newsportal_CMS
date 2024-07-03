@@ -161,3 +161,120 @@ button:hover {
 .forgot-password:hover {
     text-decoration: underline;
 }
+
+.table-container {
+    width: 90%;
+    margin: 20px auto;
+    overflow-x: auto;
+}
+
+.editor-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+.editor-table th, .editor-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.editor-table th {
+    background-color: #333333;
+    color: #f1f1f1;
+}
+
+.editor-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.editor-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-outline-dark {
+    color: #333;
+    border: 1px solid #333;
+}
+
+.btn-outline-dark:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.btn-outline-danger {
+    color: #d9534f;
+    border: 1px solid #d9534f;
+}
+
+.btn-outline-danger:hover {
+    background-color: #d9534f;
+    color: #fff;
+}
+
+.me-2 {
+    margin-right: 10px;
+}
+
+.me-2 .fas {
+    margin-right: 5px;
+}
+
+.editor {
+    background-color: #ffffff;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.editor h1 {
+    padding: 2rem;
+    text-align: start;
+}
+
+.editor button {
+    margin: 2rem;
+    padding-right: 2rem;
+    width: 10%;
+    height: 0%;
+}
+
+.editors-table {
+    margin-top: -30px;
+    background-color: #ffffff;
+}
+
+a {
+    text-decoration: none;
+    color: #f1f1f1;
+}
+
+.edit-button {
+    font-size: small;
+    width: 45%;
+}
+.delete-button {
+    background-color: red;
+    font-size: small;
+    width: 50%;
+}
+
+.action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
