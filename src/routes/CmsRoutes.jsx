@@ -22,6 +22,18 @@ export const CmsRoutes = () => {
                     <Route path="edit/:id" element={<Pages.Editors.Edit />} />
                 </Route>
 
+                <Route path="categories" element={<PrivateRoutes  element={<Outlet/>} />}>
+                    <Route index element={<Pages.Categories.List/>} />
+                    <Route path="create" element={<Pages.Categories.Create />} />
+                    <Route path="edit/:id" element={<Pages.Categories.Edit />} />
+                </Route>
+
+                <Route path="articles" element={<PrivateRoutes  element={<Outlet/>} />}>
+                    <Route index element={<Pages.Articles.List/>} />
+                    <Route path="create" element={<Pages.Articles.Create />} />
+                    <Route path="edit/:id" element={<Pages.Articles.Edit />} />
+                </Route>
+
             </Route>
         </Routes>
         </BrowserRouter>

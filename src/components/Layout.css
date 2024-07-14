@@ -14,6 +14,11 @@ body {
     border-bottom: 2px solid black;
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+}
+
 .logo a {
     color: #015d9e;
     font-size: 1.5rem;
@@ -21,21 +26,19 @@ body {
 }
 
 .nav-links {
+
     list-style: none;
     display: flex;
     gap: 1rem;
 }
 
-.nav-links li a {
+.nav-links a {
+    padding-top: 1rem;
+    font-size: medium;
     color: #000;
     text-decoration: none;
-    padding: 0.5rem 1rem;
 }
 
-.nav-links li a:hover {
-    background-color: #575757;
-    border-radius: 5px;
-}
 
 .dropdown {
     position: relative;
@@ -277,4 +280,126 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+/* Styling for the search container */
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 400px; /* Adjust width as needed */
+    margin: 0 auto; /* Center the search bar horizontally */
+    border-radius: 25px;
+    overflow: hidden; /* Clip content that overflows the container */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+/* Styling for the search input */
+.search-input {
+    flex: 1; /* Allow the input to take all available space */
+    padding: 10px 20px; /* Adjust padding for comfortable input area */
+    border: none;
+    outline: none;
+    font-size: 16px;
+    border-radius: 25px 0 0 25px; /* Rounded corners on the left side */
+    transition: box-shadow 0.3s ease; /* Smooth transition for focus effect */
+}
+
+/* Focus state for the search input */
+.search-input:focus {
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.8); /* Highlight on focus */
+}
+
+/* Styling for the search button */
+.search-button {
+    background-color: #333333; /* Blue background color */
+    color: #fff; /* White color for the icon */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+    border-radius: 0 25px 25px 0; /* Rounded corners on the right side */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Styling for the search icon */
+.search-button i {
+    font-size: 18px; /* Adjust icon size */
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .search-container {
+        width: 100%; /* Full width on small screens */
+        max-width: none; /* Remove max-width constraint */
+    }
+    
+    .search-input {
+        padding: 8px 15px; /* Adjust padding for smaller screens */
+    }
+    
+    .search-button {
+        padding: 8px 15px; /* Adjust button padding */
+    }
+}
+
+.image-preview {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-item {
+    width: calc(33.33% - 20px);
+    margin-right: 20px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.image-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+.img-sm {
+    width: auto;
+    height: 50px;
+}
+
+.editors-table td {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.editors-table {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.img-sm {
+    max-width: 50px;
+    max-height: 50px;
+    object-fit: cover;
+}
+
+.editors-table td img {
+    max-width: 100%;
+    height: auto;
+}
+
+@media screen and (max-width: 768px) {
+    .editors-table td {
+        max-width: 100px;
+    }
+}
+
+.content, .description {
+    max-height: 40px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

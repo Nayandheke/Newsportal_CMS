@@ -23,3 +23,5 @@ export const clearStorage = (key = null) => {
         sessionStorage.clear()
     }
 }
+
+export const imgUrl= filename =>`${import.meta.env.VITE_API_URL}/image/${filename}`
