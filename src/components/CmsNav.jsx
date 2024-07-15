@@ -18,11 +18,12 @@ export const CmsNav = () => {
         <div className="navbar">
             <div className="logo">
                 <Link to="/"><h1>Metro News</h1></Link>
-                {user.type == 'Admin' ?             
+                            
             <ul className="nav-links">
+            {user.type == 'Admin' ? 
                 <NavLink to="/editors" className="nav-link">
                 <i className="fa-solid fa-users me-1"></i>Editors
-                </NavLink>
+                </NavLink>: null}
 
                 <NavLink to="/categories" className="nav-link">
                 <i className="fa-solid fa-th-large me-1"></i>Categories
@@ -31,7 +32,7 @@ export const CmsNav = () => {
                 <NavLink to="/articles" className="nav-link">
                 <i class="fa-solid fa-newspaper me-1"></i>Articles
                 </NavLink>
-            </ul> : null}
+            </ul> 
             </div>
 
             <div className="dropdown">
