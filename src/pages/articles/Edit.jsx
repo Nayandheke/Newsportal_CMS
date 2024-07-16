@@ -42,7 +42,7 @@ export const Edit = () => {
                 return http.get(`cms/articles/${params.id}`);
             })
             .then(({ data }) => setArticle(data))
-            .catch((err) => console.error("Error fetching article:", err))
+            .catch((err) => {})
             .finally(() => setLoadingPage(false));
     }, [params.id]);
 
@@ -56,6 +56,7 @@ export const Edit = () => {
                 categoryId: article.categoryId,
                 status: article.status,
                 featured: article.featured,
+                latest: article.latest
             });
         }
     }, [article]);
@@ -91,8 +92,8 @@ export const Edit = () => {
                 "Content-Type": "multipart/form-data",
             },
         })
-            .then(() => navigate("/articles"))
-            .catch((err) => console.error("Error updating article:", err))
+            .then(() => navigate('/articles'))
+            .catch((err) => {})
             .finally(() => setLoading(false));
     };
 
@@ -213,7 +214,7 @@ export const Edit = () => {
                                     })}
                                 />
                             </FormItem>
-
+ 
                             <FormItem title="Featured" label="featured">
                                 <Switch
                                     checked={form.featured}

@@ -16,7 +16,7 @@ export const List = () => {
         http
             .get("cms/articles")
             .then(({ data }) => setArticles(data))
-            .catch((err) => console.error("Error fetching articles:", err))
+            .catch((err) => {})
             .finally(() => setLoading(false));
     }, []);
 
@@ -33,7 +33,7 @@ export const List = () => {
                             .delete(`cms/articles/${id}`)
                             .then(() => http.get("cms/articles"))
                             .then(({ data }) => setArticles(data))
-                            .catch((err) => console.error("Error deleting article:", err))
+                            .catch((err) => {})
                             .finally(() => setLoading(false));
                     },
                     style: {
@@ -85,8 +85,8 @@ export const List = () => {
                                 />
                             ),
                             Category: article.categoryId ? article.categoryId.name : "No Category",
-                            Latest: article.latest ? "Yes" : "No",
-                            Featured: article.featured ? "Yes" : "No",
+                            Latest: article.latest ? 'Yes' : 'No',
+                            Featured: article.featured ? 'Yes' : 'No',
                             Status: article.status ? "Published" : "Draft",
                             "Created At": moment(article.createdAt).format("lll"),
                             "Updated At": moment(article.updatedAt).format("lll"),
