@@ -28,7 +28,9 @@ export const Create = () => {
     const [loading, setLoading] = useState(false);
     const [loadingPage, setLoadingPage] = useState(false);
     const [categories, setCategories] = useState([]);
+    const [articles, setArticles] = useState([]);
     const [selectedImgs, setSelectedImgs] = useState([]);
+    const [error, setError] = useState('');
 
     const navigate = useNavigate();
 
@@ -38,21 +40,35 @@ export const Create = () => {
             for (let image of form.images) {
                 list.push(image);
             }
-
             setSelectedImgs(list);
         }
     }, [form.images]);
 
     useEffect(() => {
+        setLoadingPage(true);
         http.get('cms/categories')
-           .then(({ data }) => setCategories(data))
-           .catch(err => {})
-           .finally(() => setLoading(false));
+            .then(({ data }) => setCategories(data))
+            .catch(err => {})
+            .finally(() => setLoadingPage(false));
+    }, []);
+
+    useEffect(() => {
+        http.get('cms/articles')
+            .then(({ data }) => setArticles(data))
+            .catch(err => {})
+            .finally(() => setLoading(false));
     }, []);
 
     const handleSubmit = ev => {
         ev.preventDefault();
         setLoading(true);
+
+        // Check for duplicate article title
+        if (articles.some(article => article.title.toLowerCase() === form.title.toLowerCase())) {
+            setError('An article with this title already exists.');
+            setLoading(false);
+            return;
+        }
 
         let fd = new FormData();
 
@@ -67,13 +83,13 @@ export const Create = () => {
         }
 
         http.post('cms/articles', fd, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
-            .then(() => navigate('/articles'))
-            .catch(err => {})
-            .finally(() => setLoading(false));
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        .then(() => navigate('/articles'))
+        .catch(err => {})
+        .finally(() => setLoading(false));
     };
 
     return (
@@ -83,6 +99,7 @@ export const Create = () => {
                 <div className="login-box">
                     {loadingPage ? <Loading /> : 
                         <form onSubmit={handleSubmit}>
+                            {error && <div style={{ color: 'red' }}>{error}</div>}
                             <FormItem title="Title" label="title">
                                 <input 
                                     type="text" 

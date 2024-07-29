@@ -6,71 +6,84 @@ import { useNavigate, useParams } from "react-router-dom";
 import http from "../../http";
 
 export const Edit = () => {
-    const [form, setForm] = useState({ status: "Draft" });
-    const [categories, setCategories] = useState({});
+    const [form, setForm] = useState({ status: true });
+    const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false);
     const [loadingPage, setLoadingPage] = useState(false);
+    const [error, setError] = useState('');
 
     const navigate = useNavigate();
     const params = useParams();
 
     useEffect(() => {
         setLoadingPage(true);
-        http.get(`cms/categories/${params.id}`) // Corrected the URL
-            .then(({ data }) => setCategories(data))
+        http.get(`cms/categories/${params.id}`)
+            .then(({ data }) => {
+                setForm({
+                    name: data.name,
+                    status: data.status
+                });
+            })
             .catch(err => console.error(err))
             .finally(() => setLoadingPage(false));
-    }, [params.id]); // Corrected the dependency
+    }, [params.id]);
 
     useEffect(() => {
-        if (Object.keys(categories).length) {
-            setForm({
-                name: categories.name,
-
-                status: categories.status
-            });
-        }
-    }, [categories]);
+        // Fetch all categories to check for duplicates
+        http.get('cms/categories')
+            .then(({ data }) => setCategories(data))
+            .catch(err => console.error('Failed to fetch categories', err));
+    }, []);
 
     const handleSubmit = ev => {
         ev.preventDefault();
         setLoading(true);
 
-        http.patch(`cms/categories/${params.id}`, form) // Corrected the URL
+        // Check for duplicate category name
+        if (categories.some(category => category.name.toLowerCase() === form.name.toLowerCase() && category._id !== params.id)) {
+            setError('Category with this name already exists.');
+            setLoading(false);
+            return;
+        }
+
+        http.patch(`cms/categories/${params.id}`, form)
             .then(() => navigate('/categories'))
-            .catch(err => console.error(err))
+            .catch(err => console.error('Failed to update category', err))
             .finally(() => setLoading(false));
     };
 
     return (
         <>
-            <h1>Edit categories</h1>
+            <h1>Edit Categories</h1>
             <div className="login">
                 <div className="login-box">
-                    <form onSubmit={handleSubmit}>
-                        <FormItem title="Name" label="name">
-                            <input
-                                type="name"
-                                id="name"
-                                name="name"
-                                required
-                                defaultValue={form.name}
-                                onChange={ev => setInForm(ev, form, setForm)}
-                            />
-                        </FormItem>
+                    {loadingPage ? <div>Loading...</div> : (
+                        <form onSubmit={handleSubmit}>
+                            {error && <div style={{ color: 'red' }}>{error}</div>}
+                            <FormItem title="Name" label="name">
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    required
+                                    defaultValue={form.name}
+                                    onChange={ev => setInForm(ev, form, setForm)}
+                                />
+                            </FormItem>
 
-                        <FormItem title="Status" label="status">
-                            <Switch
-                                checked={form.status}
-                                onChange={ev => setForm({
-                                    ...form,
-                                    status: !form.status,
-                                })}
-                            />
-                        </FormItem>
+                            <FormItem title="Status" label="status">
+                                <Switch
+                                    checked={form.status}
+                                    onChange={() => setForm({
+                                        ...form,
+                                        status: !form.status,
+                                    })}
+                                />
+                            </FormItem>
 
-                        <SubmitBtn loading={loading} />
-                    </form>
+                            <SubmitBtn loading={loading} />
+                        </form>
+                    )}
                 </div>
             </div>
         </>

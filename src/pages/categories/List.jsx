@@ -50,20 +50,20 @@ export const List = () => {
     return <>
         <div className="editor"> 
             <h1>Categories</h1>
-            <button><Link to="/categories/create"><i className="fas fa-plus"></i> Add Editor</Link></button>
+            <button><Link to="/categories/create"><i className="fas fa-plus"></i>Add Category</Link></button>
         </div>
         <div className="editors-table">
         {loading ? <Loading/> : 
-           <DataTable searchable={['Name','Email']} data={categories.map(editor => {
+           <DataTable searchable={['Name','Email']} data={categories.map(category => {
                 return {
-                    'Name': editor.name,
-                    'Status' : editor.status ? 'Active' : 'Inactive',
-                    'Created At': moment(editor.createdAt).format('lll'),
-                    'Updated At': moment(editor.updatedAt).format('lll'),
+                    'Name': category.name,
+                    'Status' : category.status ? 'Active' : 'Inactive',
+                    'Created At': moment(category.createdAt).format('lll'),
+                    'Updated At': moment(category.updatedAt).format('lll'),
                     'Action' : <>
                         <div className="action">
-                        <button className="edit-button"> <Link to={`/categories/edit/${editor._id}`}><i className="fa-solid fa-edit"></i> Edit</Link></button> 
-                        <button className="delete-button" onClick={() => handleDelete(editor._id)}> <i className="fa-solid fa-trash"></i> Delete</button>
+                        <button className="edit-button"> <Link to={`/categories/edit/${category._id}`}><i className="fa-solid fa-edit"></i> Edit</Link></button> 
+                        <button className="delete-button" onClick={() => handleDelete(category._id)}> <i className="fa-solid fa-trash"></i> Delete</button>
                         </div>
                     </>
                 }

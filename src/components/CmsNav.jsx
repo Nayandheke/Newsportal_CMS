@@ -22,15 +22,15 @@ export const CmsNav = () => {
             <ul className="nav-links">
             {user.type == 'Admin' ? 
                 <NavLink to="/editors" className="nav-link">
-                <i className="fa-solid fa-users me-1"></i>Editors
+                <i className="fa-solid fa-users me-1"></i> Editors
                 </NavLink>: null}
 
                 <NavLink to="/categories" className="nav-link">
-                <i className="fa-solid fa-th-large me-1"></i>Categories
+                <i className="fa-solid fa-th-large me-1"></i> Categories
                 </NavLink>
 
                 <NavLink to="/articles" className="nav-link">
-                <i class="fa-solid fa-newspaper me-1"></i>Articles
+                <i class="fa-solid fa-newspaper me-1"></i> Articles
                 </NavLink>
             </ul> 
             </div>

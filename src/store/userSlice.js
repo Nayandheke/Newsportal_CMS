@@ -13,7 +13,6 @@ const userSlice = createSlice({
             state.value={}
         },
     }
-    
 })
 
 export default userSlice.reducer

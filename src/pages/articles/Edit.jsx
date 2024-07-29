@@ -29,7 +29,9 @@ export const Edit = () => {
     const [loading, setLoading] = useState(false);
     const [loadingPage, setLoadingPage] = useState(false);
     const [categories, setCategories] = useState([]);
+    const [articles, setArticles] = useState([]);
     const [selectedImgs, setSelectedImgs] = useState([]);
+    const [error, setError] = useState('');
 
     const navigate = useNavigate();
     const params = useParams();
@@ -62,6 +64,13 @@ export const Edit = () => {
     }, [article]);
 
     useEffect(() => {
+        http.get('cms/articles')
+            .then(({ data }) => setArticles(data))
+            .catch(err => {})
+            .finally(() => setLoading(false));
+    }, []);
+
+    useEffect(() => {
         if (form.images && form.images.length) {
             let list = [];
             for (let image of form.images) {
@@ -74,6 +83,13 @@ export const Edit = () => {
     const handleSubmit = (ev) => {
         ev.preventDefault();
         setLoading(true);
+
+        // Check for duplicate article title
+        if (articles.some(article => article.title.toLowerCase() === form.title.toLowerCase() && article._id !== params.id)) {
+            setError('An article with this title already exists.');
+            setLoading(false);
+            return;
+        }
 
         let fd = new FormData();
 
@@ -116,6 +132,7 @@ export const Edit = () => {
                         <Loading />
                     ) : (
                         <form onSubmit={handleSubmit}>
+                            {error && <div style={{ color: 'red' }}>{error}</div>}
                             <FormItem title="Title" label="title">
                                 <input
                                     type="text"
@@ -214,7 +231,7 @@ export const Edit = () => {
                                     })}
                                 />
                             </FormItem>
- 
+
                             <FormItem title="Featured" label="featured">
                                 <Switch
                                     checked={form.featured}
